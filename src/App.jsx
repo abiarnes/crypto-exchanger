@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import imgCrypto from './assets/img/img-crypto.png';
 import Form from "./components/Form";
@@ -41,12 +41,27 @@ const Heading = styled.h1`
 `
 
 function App() {
+
+  const [currency, setCurrency] = useState({});
+
+  useEffect(() => {
+    if(Object.keys(currency).length > 0) {
+      const priceCrypto = async () => {
+        const { currencySelected, cryptoSelected } = currency;
+        const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptoSelected}&tsyms=${currencySelected}`
+        await 
+      }
+
+      priceCrypto();
+    }    
+  }, [currency])
+
   return (
   <Container>
     <Img src={imgCrypto} alt='Image Cryptocurrency' />
     <div>
       <Heading>Instant cryptocurrency trading</Heading>
-      <Form />
+      <Form setCurrency={setCurrency} />
     </div>
   </Container>
   );

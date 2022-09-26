@@ -23,7 +23,7 @@ const InputSubmit = styled.input`
     }
 `
 
-const Form = () => {
+const Form = ({setCurrency}) => {
     const [ crypto, setCrypto ] = useState([]);
     const [ error, setError ] = useState(false);
     const [ currencySelected, SelectCurrency ] = useSelectCurrency('Choose a currency', currencyList);
@@ -58,11 +58,17 @@ const Form = () => {
             setError(true);
             return;
         }
+
+        setError(false);
+        setCurrency({
+            currencySelected,
+            cryptoSelected
+        })
     }
 
     return (
         <>
-        {error && <Error />}
+        {error && <Error>All fields are mandatory</Error>}
         <form
             onSubmit={handleSubmit}
         >
